@@ -1,1 +1,6 @@
-export { ProtocolList, ProtocolInfo, ProtocolAddressInfo, ProtocolChainInfo } from './types';
+export {
+    ProtocolList,
+    ProtocolInfo,
+    ProtocolAddressInfo,
+    ProtocolChainInfo,
+} from './types';
