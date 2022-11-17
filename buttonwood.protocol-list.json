@@ -1,0 +1,78 @@
+{
+  "name": "Buttonwood",
+  "timestamp": "2022-11-17T04:19:53.310Z",
+  "version": {
+    "major": 0,
+    "minor": 0,
+    "patch": 1
+  },
+  "logoURI": "https://buttonwood-protocol.github.io/buttonwood-protocol-list/assets/buttonwood.svg",
+  "keywords": [
+    "buttonwood",
+    "defi"
+  ],
+  "protocols": [
+    {
+      "name": "Ampleforth",
+      "imageURI": "https://buttonwood-protocol.github.io/buttonwood-protocol-list/assets/protocols/ampleforth/logo.png",
+      "homepage": "https://www.ampleforth.org/",
+      "chains": {
+        "1": {
+          "auctionCreators": [
+            "0xd8461BD73F19E3d789Ac0E5dbF1AD62FBBd15C22"
+          ],
+          "bondCreators": [
+            "0xd8461BD73F19E3d789Ac0E5dbF1AD62FBBd15C22"
+          ]
+        },
+        "5": {
+          "auctionCreators": [],
+          "bondCreators": []
+        }
+      },
+      "overrides": {
+        "0xd8461BD73F19E3d789Ac0E5dbF1AD62FBBd15C22": {
+          "name": "Ampleforth: Deployer"
+        }
+      }
+    },
+    {
+      "name": "HourGlass",
+      "chains": {
+        "1": {
+          "bondCreators": []
+        },
+        "5": {
+          "bondCreators": []
+        }
+      }
+    },
+    {
+      "name": "PRL",
+      "imageURI": "https://pbs.twimg.com/profile_images/1471660857905926144/BuQW61OH_400x400.jpg",
+      "homepage": "https://www.prl.one/",
+      "chains": {
+        "1": {
+          "auctionCreators": [
+            "0xd7e86Bd77784217324b4E94AEDc68E5C8227EC2B"
+          ],
+          "bondCreators": [
+            "0xd7e86Bd77784217324b4E94AEDc68E5C8227EC2B"
+          ]
+        },
+        "5": {
+          "auctionCreators": [
+            "0xfD99d2d103b09F95c3dFc458F57178bF0CD587B1",
+            "0xEDBcCA5DfD692bab7656Ab2D4F499B43fA26480B",
+            "0xb1Cc73B1610863D51B5b8269b9162237e87679c3"
+          ],
+          "bondCreators": [
+            "0xfD99d2d103b09F95c3dFc458F57178bF0CD587B1",
+            "0xEDBcCA5DfD692bab7656Ab2D4F499B43fA26480B",
+            "0xb1Cc73B1610863D51B5b8269b9162237e87679c3"
+          ]
+        }
+      }
+    }
+  ]
+}

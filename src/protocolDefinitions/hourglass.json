@@ -1,0 +1,13 @@
+{
+  "name": "HourGlass",
+  "chains": {
+    "mainnet": {
+      "bondCreators": [
+      ]
+    },
+    "goerli": {
+      "bondCreators": [
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Ampleforth",
+  "homepage": "https://www.ampleforth.org/",
+  "imageURI": "assets/protocols/ampleforth/logo.png",
+  "chains": {
+    "mainnet": {
+      "auctionCreators": [
+        "0xd8461BD73F19E3d789Ac0E5dbF1AD62FBBd15C22"
+      ],
+      "bondCreators": [
+        "0xd8461BD73F19E3d789Ac0E5dbF1AD62FBBd15C22"
+      ]
+    },
+    "goerli": {
+      "auctionCreators": [
+      ],
+      "bondCreators": [
+      ]
+    }
+  },
+  "overrides": {
+    "0xd8461BD73F19E3d789Ac0E5dbF1AD62FBBd15C22": {
+      "name": "Ampleforth: Deployer"
+    }
+  }
+}
