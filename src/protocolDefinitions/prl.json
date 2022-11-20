@@ -1,7 +1,7 @@
 {
   "name": "PRL",
   "homepage": "https://www.prl.one/",
-  "imageURI": "https://pbs.twimg.com/profile_images/1471660857905926144/BuQW61OH_400x400.jpg",
+  "imageURI": "assets/protocols/prl/mascot.png",
   "chains": {
     "mainnet": {
       "auctionCreators": [

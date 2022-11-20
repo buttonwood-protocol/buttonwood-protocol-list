@@ -1,6 +1,6 @@
 {
   "name": "Buttonwood",
-  "timestamp": "2022-11-17T04:19:53.310Z",
+  "timestamp": "2022-11-20T02:41:06.022Z",
   "version": {
     "major": 0,
     "minor": 0,
@@ -13,43 +13,8 @@
   ],
   "protocols": [
     {
-      "name": "Ampleforth",
-      "imageURI": "https://buttonwood-protocol.github.io/buttonwood-protocol-list/assets/protocols/ampleforth/logo.png",
-      "homepage": "https://www.ampleforth.org/",
-      "chains": {
-        "1": {
-          "auctionCreators": [
-            "0xd8461BD73F19E3d789Ac0E5dbF1AD62FBBd15C22"
-          ],
-          "bondCreators": [
-            "0xd8461BD73F19E3d789Ac0E5dbF1AD62FBBd15C22"
-          ]
-        },
-        "5": {
-          "auctionCreators": [],
-          "bondCreators": []
-        }
-      },
-      "overrides": {
-        "0xd8461BD73F19E3d789Ac0E5dbF1AD62FBBd15C22": {
-          "name": "Ampleforth: Deployer"
-        }
-      }
-    },
-    {
-      "name": "HourGlass",
-      "chains": {
-        "1": {
-          "bondCreators": []
-        },
-        "5": {
-          "bondCreators": []
-        }
-      }
-    },
-    {
       "name": "PRL",
-      "imageURI": "https://pbs.twimg.com/profile_images/1471660857905926144/BuQW61OH_400x400.jpg",
+      "imageURI": "https://buttonwood-protocol.github.io/buttonwood-protocol-list/assets/protocols/prl/mascot.png",
       "homepage": "https://www.prl.one/",
       "chains": {
         "1": {
