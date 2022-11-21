@@ -1,0 +1,48 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# This workflow will install node and run tests across stable and nightly builds on Windows, Ubuntu and macOS.
+
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    paths:
+      - '**'
+
+jobs:
+  test-auction-client:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [14.17.5]
+
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Setup Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install
+        run: yarn install
+
+      - name: Confirm no breaking changes to build
+        run: yarn start
+
+      - name: Test
+        run: yarn test

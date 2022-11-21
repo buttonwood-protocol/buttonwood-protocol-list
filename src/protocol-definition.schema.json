@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://buttonwood-protocol.github.io/buttonwood-protocol-list/src/protocol-definition.schema.json",
+  "title": "Protocol Definition",
+  "description": "Schema for protocol data supplied to build a ProtocolList",
+  "definitions": {
+    "Address": {
+      "type": "string",
+      "description": "The checksummed address on the specified chain ID",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "examples": [
+        "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+      ]
+    },
+    "Name": {
+      "type": "string",
+      "description": "The name of this address or protocol",
+      "minLength": 1,
+      "maxLength": 40,
+      "examples": [
+        "Buttonwood"
+      ]
+    },
+    "ImageURI": {
+      "type": "string",
+      "description": "A URI for an image to associate with this address or protocol. Recommend SVG or PNG of size 256x256",
+      "oneOf": [
+        {
+          "format": "uri"
+        },
+        {
+          "pattern": "^assets/"
+        }
+      ],
+      "examples": [
+        "ipfs://QmXfzKRvjZz3u5JRgC4v5mGVbm9ahrUiB4DgzHBsnWbTMM",
+        "assets/protocols/ampleforth/logo.png"
+      ]
+    },
+    "Homepage": {
+      "type": "string",
+      "description": "A URI for a website to associate with this address or protocol",
+      "format": "uri",
+      "examples": [
+        "https://button.foundation/"
+      ]
+    },
+    "ProtocolAddressInfo": {
+      "type": "object",
+      "description": "Metadata for a protocol controlled address",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/Name"
+        },
+        "imageURI": {
+          "$ref": "#/definitions/ImageURI"
+        },
+        "homepage": {
+          "$ref": "#/definitions/Homepage"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProtocolChainInfo": {
+      "type": "object",
+      "properties": {
+        "auctionCreators": {
+          "type": "array",
+          "description": "An array of addresses that are controlled by the protocol and used to create auctions on this chain",
+          "items": {
+            "$ref": "#/definitions/Address"
+          },
+          "maxItems": 1000,
+          "examples": [
+            "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+          ]
+        },
+        "bondCreators": {
+          "type": "array",
+          "description": "An array of addresses that are controlled by the protocol and used to create bonds on this chain",
+          "items": {
+            "$ref": "#/definitions/Address"
+          },
+          "maxItems": 1000,
+          "examples": [
+            "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "$ref": "#/definitions/Name"
+    },
+    "imageURI": {
+      "$ref": "#/definitions/ImageURI"
+    },
+    "homepage": {
+      "$ref": "#/definitions/Homepage"
+    },
+    "chains": {
+      "type": "object",
+      "description": "A map of the chain name to the protocol data related to that chain. We use chain name here to reduce potential for error, as it is easier to mix up numerical chain IDs than it is a chain name",
+      "propertyNames": {
+        "enum": [
+          "mainnet",
+          "goerli"
+        ]
+      },
+      "patternProperties": {
+        "": {
+          "$ref": "#/definitions/ProtocolChainInfo"
+        }
+      }
+    },
+    "overrides": {
+      "type": "object",
+      "description": "A map of an address specified in ProtocolChainInfo to properties that override the base protocol metadata",
+      "propertyNames": {
+        "$ref": "#/definitions/Address"
+      },
+      "patternProperties": {
+        "": {
+          "$ref": "#/definitions/ProtocolAddressInfo"
+        }
+      }
+    }
+  },
+  "required": [
+    "name",
+    "chains"
+  ],
+  "additionalProperties": false
+}
