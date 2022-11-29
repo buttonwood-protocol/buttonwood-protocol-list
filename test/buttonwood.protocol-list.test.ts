@@ -2,9 +2,10 @@ import { getAddress } from '@ethersproject/address';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import { expect } from 'chai';
-import { schema } from 'protocol-lists';
+import { getNewVersion, schema } from 'protocol-lists';
 import packageJson from '../package.json';
 import { protocolList } from '../src';
+import { getOldProtocolList } from '../src/getOldProtocolList';
 import { pathExists } from '../src/utils/pathExists';
 import { getLocalPath } from './getLocalPath';
 
@@ -114,5 +115,15 @@ describe('buildList', () => {
     expect(packageJson.version).to.equal(
       `${protocolList.version.major}.${protocolList.version.minor}.${protocolList.version.patch}`,
     );
+  });
+
+  it('version is correctly upgraded', async () => {
+    const newVersion = getNewVersion(
+      await getOldProtocolList(),
+      // stringify & parse to flush any undefined or null values that will be lost by the time the new list
+      //   has been written, but which cause unwanted diffs when calculating new version
+      JSON.parse(JSON.stringify(protocolList)),
+    );
+    expect(protocolList.version).to.deep.equal(newVersion);
   });
 });
