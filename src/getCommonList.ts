@@ -1,6 +1,6 @@
 import { Tags } from '@uniswap/token-lists';
 import packageJson from '../package.json';
-import { CommonList } from './types';
+import { CommonList } from 'protocol-lists';
 import { getAssetUri } from './getAssetUri';
 
 export interface CommonListParams {

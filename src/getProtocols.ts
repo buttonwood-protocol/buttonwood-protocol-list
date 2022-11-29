@@ -5,7 +5,11 @@ import path from 'path';
 import { getAssetUri } from './getAssetUri';
 import { getChainId } from './getChainId';
 import protocolDefinitionSchema from './protocol-definition.schema.json';
-import { ProtocolAddressInfo, ProtocolChainInfo, ProtocolInfo } from './types';
+import {
+  ProtocolAddressInfo,
+  ProtocolChainInfo,
+  ProtocolInfo,
+} from 'protocol-lists';
 import { loadJson } from './utils/loadJson';
 
 const protocolDefinitionsPath = './src/protocolDefinitions';

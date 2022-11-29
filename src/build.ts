@@ -1,4 +1,5 @@
 import { writeFile } from 'fs/promises';
+import path from 'path';
 import { getProtocolList } from './getProtocolList';
 import { getProtocols } from './getProtocols';
 
@@ -14,7 +15,7 @@ async function build(): Promise<void> {
   );
 
   await writeFile(
-    './buttonwood.protocol-list.json',
+    path.join('src', 'buttonwood.protocol-list.json'),
     JSON.stringify(protocolList, null, 2),
     'utf8',
   );
