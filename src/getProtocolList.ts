@@ -1,5 +1,5 @@
-import { CommonListParams, getCommonList } from './getCommonList';
 import { ProtocolInfo, ProtocolList } from 'protocol-lists';
+import { CommonListParams, getCommonList } from './getCommonList';
 
 export function getProtocolList(
   commonParams: CommonListParams,
