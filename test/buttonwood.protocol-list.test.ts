@@ -2,25 +2,18 @@ import { getAddress } from '@ethersproject/address';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import { expect } from 'chai';
-import path from 'path';
-import { ProtocolList } from '../dist';
+import { schema } from 'protocol-lists';
 import packageJson from '../package.json';
-import protocolListSchema from '../protocol-list.schema.json';
-import { loadJson } from '../src/utils/loadJson';
+import { protocolList } from '../src';
 import { pathExists } from '../src/utils/pathExists';
 import { getLocalPath } from './getLocalPath';
 
 const ajv = new Ajv({ allErrors: true, verbose: true });
 addFormats(ajv);
-const validator = ajv.compile(protocolListSchema);
+const validator = ajv.compile(schema);
 
 describe('buildList', () => {
-  const protocolListPromise = loadJson<ProtocolList>(
-    path.join('.', 'buttonwood.protocol-list.json'),
-  );
-
   it('validates against schema', async () => {
-    const protocolList = await protocolListPromise;
     const validates = validator(protocolList);
     if (!validates) {
       console.error(validator.errors);
@@ -29,7 +22,6 @@ describe('buildList', () => {
   });
 
   it('contains no duplicate protocol names', async () => {
-    const protocolList = await protocolListPromise;
     const map: Record<string, true> = {};
     for (const protocolInfo of protocolList.protocols) {
       const key = protocolInfo.name;
@@ -39,7 +31,6 @@ describe('buildList', () => {
   });
 
   it('all addresses are valid and checksummed', async () => {
-    const protocolList = await protocolListPromise;
     for (const protocolInfo of protocolList.protocols) {
       if (protocolInfo.overrides) {
         for (const address of Object.keys(protocolInfo.overrides)) {
@@ -47,14 +38,16 @@ describe('buildList', () => {
         }
       }
       for (const protocolChainInfo of Object.values(protocolInfo.chains)) {
-        if (protocolChainInfo.auctionCreators) {
-          for (const address of protocolChainInfo.auctionCreators) {
-            expect(address).to.eq(getAddress(address));
+        if (protocolChainInfo) {
+          if (protocolChainInfo.auctionCreators) {
+            for (const address of protocolChainInfo.auctionCreators) {
+              expect(address).to.eq(getAddress(address));
+            }
           }
-        }
-        if (protocolChainInfo.bondCreators) {
-          for (const address of protocolChainInfo.bondCreators) {
-            expect(address).to.eq(getAddress(address));
+          if (protocolChainInfo.bondCreators) {
+            for (const address of protocolChainInfo.bondCreators) {
+              expect(address).to.eq(getAddress(address));
+            }
           }
         }
       }
@@ -62,19 +55,20 @@ describe('buildList', () => {
   });
 
   it('no unused override addresses', async () => {
-    const protocolList = await protocolListPromise;
     for (const protocolInfo of protocolList.protocols) {
       if (protocolInfo.overrides) {
         const addresses = new Set();
         for (const protocolChainInfo of Object.values(protocolInfo.chains)) {
-          if (protocolChainInfo.auctionCreators) {
-            for (const address of protocolChainInfo.auctionCreators) {
-              addresses.add(address);
+          if (protocolChainInfo) {
+            if (protocolChainInfo.auctionCreators) {
+              for (const address of protocolChainInfo.auctionCreators) {
+                addresses.add(address);
+              }
             }
-          }
-          if (protocolChainInfo.bondCreators) {
-            for (const address of protocolChainInfo.bondCreators) {
-              addresses.add(address);
+            if (protocolChainInfo.bondCreators) {
+              for (const address of protocolChainInfo.bondCreators) {
+                addresses.add(address);
+              }
             }
           }
         }
@@ -86,7 +80,6 @@ describe('buildList', () => {
   });
 
   it('all local assets exist', async () => {
-    const protocolList = await protocolListPromise;
     if (protocolList.logoURI) {
       const localPath = getLocalPath(protocolList.logoURI);
       if (localPath) {
@@ -117,7 +110,6 @@ describe('buildList', () => {
   });
 
   it('version matches package.json', async () => {
-    const protocolList = (await protocolListPromise) as ProtocolList;
     expect(packageJson.version).to.match(/^\d+\.\d+\.\d+$/);
     expect(packageJson.version).to.equal(
       `${protocolList.version.major}.${protocolList.version.minor}.${protocolList.version.patch}`,
